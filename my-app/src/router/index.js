@@ -1,14 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { auth } from '../firebase'; 
-import Login from '../screens/Login.vue';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Homepage from '../screens/Homepage.vue';
+import Login from '../screens/Login.vue';
+
+const auth = getAuth();
+
+const requireAuth = (to, from, next) => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      unsubscribe();
+      next();
+    } else {
+      unsubscribe();
+      next({ name: 'Login' }); 
+    }
+  });
+};
 
 const routes = [
   {
     path: '/',
     name: 'Homepage',
     component: Homepage,
-    meta: { requiresAuth: true },
+    beforeEnter: requireAuth,
   },
   {
     path: '/login',
@@ -18,22 +32,8 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(), // Use the Web History API for routing
+  history: createWebHistory(),
   routes,
-});
-
-// Navigation guard to check if the user is authenticated
-router.beforeEach((to, from, next) => {
-  const user = auth.currentUser;
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!user) {
-      next({ name: 'Login' });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
 });
 
 export default router;
