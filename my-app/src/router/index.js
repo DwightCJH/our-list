@@ -8,6 +8,7 @@ const routes = [
     path: '/',
     name: 'Homepage',
     component: Homepage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
