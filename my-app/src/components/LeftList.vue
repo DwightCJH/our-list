@@ -20,7 +20,14 @@ const removeTask = (index) => {
 
 <template>
   <div class="todo-container bg-white text-gray-800 p-6 rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold mb-4 text-gray-700">Claire's To-Do List</h1>
+    <h1 class="text-2xl font-bold mb-4 text-gray-700 text-center">Claire's To-Do List</h1>
+    <div class="flex justify-center items-center m-5">
+    <img 
+      src="../assets/images/claire.jpg" 
+      alt="Profile Picture" 
+      class="w-32 h-32 rounded-full object-cover"
+    />
+  </div>
     <div class="flex gap-2 mb-4">
       <input
         @keyup.enter="addTask"

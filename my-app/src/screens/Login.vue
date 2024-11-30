@@ -2,8 +2,8 @@
   <div>
     <div class="profile-selection">
       <button
-        @click="selectProfile('1@a.com')"
-        :class="{ selected: selectedProfile === '1@a.com' }"
+        @click="selectProfile('claire@login.com')"
+        :class="{ selected: selectedProfile === 'claire@login.com' }"
         class="profile-btn"
       >
         <img
@@ -14,8 +14,8 @@
         <span>Claire</span>
       </button>
       <button
-        @click="selectProfile('2@a.com')"
-        :class="{ selected: selectedProfile === '2@a.com' }"
+        @click="selectProfile('dwight@login.com')"
+        :class="{ selected: selectedProfile === 'dwight@login.com' }"
         class="profile-btn"
       >
         <img
