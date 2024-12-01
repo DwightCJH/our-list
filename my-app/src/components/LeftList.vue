@@ -1,22 +1,47 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
+import { getFirestore, doc, collection, onSnapshot, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'; // Modular Firestore imports
+import { db } from '../firebase'; // Import your Firebase setup
 
 const tasks = ref([]); // Array to hold tasks
 const newTask = ref(''); // Input field for new task
+// Firestore references
+const claireRef = doc(db, 'listItems', 'claire');
+
+// Fetch tasks from Firestore on component mount
+onMounted(() => {
+  onSnapshot(claireRef, (docSnapshot) => {
+    tasks.value = docSnapshot.exists() ? docSnapshot.data().tasks : [];
+  });
+});
 
 // Add a task to the list
-const addTask = () => {
+const addTask = async () => {
   if (newTask.value.trim()) {
-    tasks.value.push(newTask.value.trim());
-    newTask.value = ''; // Clear input field
+    try {
+      await updateDoc(claireRef, {
+        tasks: arrayUnion(newTask.value.trim()),
+      });
+      newTask.value = ''; // Clear input field
+    } catch (error) {
+      console.error('Error adding task: ', error);
+    }
   }
 };
 
 // Remove a task from the list
-const removeTask = (index) => {
-  tasks.value.splice(index, 1);
+const removeTask = async (taskToRemove) => {
+  try {
+    await updateDoc(claireRef, {
+      tasks: arrayRemove(taskToRemove),
+    });
+  } catch (error) {
+    console.error('Error removing task: ', error);
+  }
 };
 </script>
+
+
 
 <template>
   <div class="todo-container bg-white text-gray-800 p-6 rounded-lg shadow-lg">
@@ -51,7 +76,7 @@ const removeTask = (index) => {
       >
         <span>{{ task }}</span>
         <button
-          @click="removeTask(index)"
+          @click="removeTask(task)"
           class="text-red-500 hover:text-red-700 transition"
         >
           Remove
