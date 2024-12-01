@@ -27,18 +27,29 @@
       </button>
     </div>
 
-    <form @submit.prevent="handleSubmit" class="login-form">
-      <div>
+    <div>
+    <form @submit.prevent="handleSubmit" class="flex flex-col items-center mt-8">
+      <!-- Password Input -->
+      <div class="w-full max-w-sm">
         <input
           type="password"
           v-model="password"
           placeholder="Enter your password"
           required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
         />
-        <p v-if="passwordError" class="error-message">{{ passwordError }}</p>
+        <p v-if="passwordError" class="text-red-500 text-sm mt-2">{{ passwordError }}</p>
       </div>
-      <button type="submit" class="btn-login">Login</button>
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        class="mt-4 px-6 py-2 bg-green-400 text-white font-semibold rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+      >
+        Login
+      </button>
     </form>
+  </div>
   </div>
 </template>
 
@@ -97,10 +108,11 @@ const handleSubmit = async () => {
 }
 
 .profile-pic {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 200px; 
+  height: auto; 
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; 
+  object-fit: cover; 
   margin-bottom: 2rem;
   border: 4px solid transparent;
   transition: border-color 0.3s ease, transform 0.3s ease;
@@ -110,12 +122,13 @@ const handleSubmit = async () => {
   transform: scale(1.1);
 }
 
+
 .profile-btn.selected .profile-pic {
   border-color: #138607; 
   transform: scale(1.1);
 }
 
-.login-form {
+/* .login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -125,11 +138,11 @@ const handleSubmit = async () => {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   border: none;
-  background-color: #4caf50;
+  background-color: #fcd1f1;
   color: white;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
 .error-message {
   color: red;
