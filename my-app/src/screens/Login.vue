@@ -44,7 +44,7 @@
       <!-- Login Button -->
       <button
         type="submit"
-        class="mt-4 px-6 py-2 bg-green-400 text-white font-semibold rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+        class="mt-4 px-6 py-2 bg-gray-800 text-white font-semibold rounded-md shadow-md hover:bg-gray-700 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
       >
         Login
       </button>
