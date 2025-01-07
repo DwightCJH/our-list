@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Homepage from '../screens/Homepage.vue';
 import Login from '../screens/Login.vue';
-
+import PiggyBank from '../screens/PiggyBank.vue'
 const auth = getAuth();
 
 const requireAuth = (to, from, next) => {
@@ -29,6 +29,11 @@ const routes = [
     name: 'Login',
     component: Login,
   },
+  {
+    path:'/piggybank',
+    name: 'PiggyBank',
+    component: PiggyBank
+  }
 ];
 
 const router = createRouter({
